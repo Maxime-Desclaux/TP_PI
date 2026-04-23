@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>App</title>
+</head>
+<body>
+  <h1>Frontend OK</h1>
+
+  <button onclick="loadUsers()">Load Users</button>
+
+  <ul id="users"></ul>
+
+  <script>
+    async function loadUsers() {
+      const res = await fetch('http://localhost:3000/users');
+      const data = await res.json();
+
+      const list = document.getElementById('users');
+      list.innerHTML = "";
+
+      data.forEach(user => {
+        const li = document.createElement('li');
+        li.textContent = user.name;
+        list.appendChild(li);
+      });
+    }
+  </script>
+</body>
+</html>
