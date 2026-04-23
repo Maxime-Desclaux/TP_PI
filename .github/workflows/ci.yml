@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v3
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Install backend deps
+      - name: Install backend dependencies
         run: |
           cd backend
           npm install
@@ -22,11 +22,11 @@ jobs:
           cd backend
           npm test
 
-      - name: Build backend image
+      - name: Build Docker image
         run: docker build -t ${{ secrets.DOCKER_USER }}/backend ./backend
 
       - name: Login Docker Hub
         run: echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USER }}" --password-stdin
 
-      - name: Push backend image
+      - name: Push Docker image
         run: docker push ${{ secrets.DOCKER_USER }}/backend
